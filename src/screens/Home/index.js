@@ -17,16 +17,17 @@ const Home = () => {
     const dispatch = useDispatch();
     const productDetail = (product) => {
         dispatch(addToCart());
-        // dispatch(itemName(product))
-        // console.log("after dispatch")
+        console.log("after adding");
+        dispatch(itemName(product))
+        console.log("after dispatch")
     }
     useEffect(() => {
         fetchData();
     }, []);
 
-    const fetchData = () => {
+    const fetchData = async () => {
         try {
-            fetch('https://fakestoreapi.com/products')
+            await fetch('https://fakestoreapi.com/products')
                 .then((res) => res.json())
                 .then((json) => {
                     setAllProducts(json);
@@ -41,15 +42,21 @@ const Home = () => {
     const ShowDetail = ((item) => {
         navigation.navigate("DetailScreen", { item: item })
     })
+    const moveTocart=(()=>{
+        navigation.navigate("CartScreen")
+    })
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Shop Now</Text>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("CartDetails_ReduxToolkit")}
-                    style={{ height: 30, alignItems: 'right' }} >
-                    <Text style={{ textAlign: 'right', fontSize: 25, borderColor: 'black', marginLeft: 300, borderRadius: 15, backgroundColor: 'grey', color: 'white', textAlign: 'center' }}> {cart.Cart} </Text>
-                </TouchableOpacity>
+                <View>
+                    <Text style={styles.headerText}>Shop Now</Text>
+                </View>
+                <View>
+                    <TouchableOpacity onPress={()=>moveTocart()}
+                        style={{ height: 30, alignItems: 'right' }} >
+                        <Text style={{ marginLeft:wp(15), textAlign: 'right', fontSize: 20, borderColor: 'black', borderRadius: 15, backgroundColor: 'grey', color: 'white', textAlign: 'center', marginTop:wp(1) }}> {cart.Cart} </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <FlatList
                 data={allProducts}
@@ -58,20 +65,20 @@ const Home = () => {
                 renderItem={({ item }) => (
                     <View style={styles.itemContainer}>
                         <View style={styles.itempart}>
-                        <TouchableOpacity onPress={() => ShowDetail(item)}>
-                            <View style={styles.imageItem}>
-                                <Image source={{ uri: item.image }} style={styles.image} />
-                            </View>
-                            <Text style={styles.title}>{item.title}</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.price}>Price: ${item.price}</Text>
-                        <Text style={styles.rating}>Rating: {item.rating.rate}</Text>
+                            <TouchableOpacity onPress={() => ShowDetail(item)}>
+                                <View style={styles.imageItem}>
+                                    <Image source={{ uri: item.image }} style={styles.image} />
+                                </View>
+                                <Text style={styles.title}>{item.title}</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.price}>Price: ${item.price}</Text>
+                            <Text style={styles.rating}>Rating: {item.rating.rate}</Text>
                         </View>
                         <View style={styles.cartpart}>
-                        <TouchableOpacity onPress={() => productDetail(item)}
-                            style={styles.cart} >
-                            <Text > Add to Cart</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => productDetail(item)}
+                                style={styles.cart} >
+                                <Text > Add to Cart</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 )}
@@ -88,9 +95,11 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'row'
     },
     headerText: {
         fontSize: wp(9),
+        marginLeft:wp(25)
     },
     itemContainer: {
         flex: 1,
@@ -101,12 +110,12 @@ const styles = StyleSheet.create({
         // borderLeftWidth:0.5,
         padding: wp(3),
     },
-    cartpart:{
-        flex:0.25,
+    cartpart: {
+        flex: 0.25,
         // backgroundColor:'blue'
     },
-    itempart:{
-        flex:0.75,
+    itempart: {
+        flex: 0.75,
         // backgroundColor:'red'
     },
     imageItem: {
@@ -132,8 +141,11 @@ const styles = StyleSheet.create({
         height: 30,
         alignItems: 'center',
         justifyContent: 'center',
-        bottom:wp(0)
+        bottom: wp(0)
     }
 });
 
 export default Home;
+
+
+
