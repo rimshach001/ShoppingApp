@@ -4,7 +4,10 @@ import {
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 const styles = StyleSheet.create({
-
+container:{
+    flex:0.7,
+    // backgroundColor:'red'
+}
 
 })
 export default styles

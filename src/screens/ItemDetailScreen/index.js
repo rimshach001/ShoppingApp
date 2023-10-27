@@ -2,10 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { Image } from 'react-native';
 import { StyleSheet } from 'react-native';
-import {
-    widthPercentageToDP as wp,
-    heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import styles from './styles';
 const ItemDetailScreen = ({ route }) => {
     const { item } = route.params
     console.log(item);
@@ -26,61 +23,5 @@ const ItemDetailScreen = ({ route }) => {
         </View>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F1F1F0',
-        paddingTop: wp(8),
-        //   alignItems:'center',
-        paddingHorizontal: wp(3)
-    },
-    header: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    headerText: {
-        fontSize: wp(8),
-    },
-    itemContainer: {
-        flex: 1,
-        //   alignItems: 'center',
-        borderBottomColor: 'black',
-        borderBottomWidth: 0.5,
-        // borderLeftColor:'black',
-        // borderLeftWidth:0.5,
-        padding: wp(2),
-    },
-    imageView: {
-        alignItems: 'center',
-    },
-    image: {
-        width: wp(70),
-        height: wp(70),
-    },
-    desc: {
-        //   fontWeight: 'bold',
-        marginTop: 10,
-        fontWeight: 'normal'
-    },
-    category: {
-        fontWeight: 'bold',
-        marginTop: 10,
-        fontWeight: 'normal'
-    },
-    price: {
-        // fontSize:wp(5),
-        marginTop: 5,
-        fontWeight: 'normal'
-    },
-    rating: {
-        marginTop: 5,
-        fontWeight: 'normal'
-    },
-    boldText: {
-        fontWeight: 'bold',
-        marginTop: 10,
-        fontSize: wp(4)
-    },
-});
 
 export default ItemDetailScreen
